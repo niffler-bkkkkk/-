@@ -24,7 +24,7 @@
       <div class="line line3"></div>
       <div class="line line4"></div>
       <div class="line line5"></div>
-      <div class="dateItem" v-for="(item,index) in date" :key="index" :class="[item=='x'?blankDateItem:'']" v-on:click="addAnniversary(index)">{{ item }}</div>
+      <div class="dateItem" v-for="(item,index) in dateInfo" :key="index" :class="[item.date=='x'?blankDateItem:'',item.title==''?'':anniColor]" v-on:click="addAnniversary(index)" :title="item.title">{{ item.date }}</div>
     </div>
     </div>
   </div>
@@ -49,12 +49,14 @@ export default {
       month: ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."],
       allYear: [],
       allMon: [],
-      date: [],
+      dateInfo: [],
       blankItem: 0,
       blankDateItem: "blankDateItem",
       anni: [],
       anniDay: 0,
-      anniColor: "anniColor"
+      anniColor: "anniColor",
+      anniMon: "",
+      anniDay: ""
     };
   },
   methods: {
@@ -66,9 +68,11 @@ export default {
         var anniDay = index - this.firstDay + 1;
         if (anniMon < 10) {
           anniMon = "0" + anniMon;
+          this.anniMon = anniMon;
         }
         if (anniDay < 10) {
           anniDay = "0" + anniDay;
+          this.anniDay = anniDay;
         }
         var date = anniYear + "/" + anniMon + "/" + anniDay;
         let params = new URLSearchParams();
@@ -109,14 +113,14 @@ export default {
       this.selectedMon = currentMonth + 1;
     },
     createDate() {
-      this.date = [];
+      this.dateInfo = [];
       var blank = this.firstDay;
       for (var e = 0; e < blank; e++) {
-        this.$set(this.date, e, "x");
+        this.$set(this.dateInfo,e,{ date: "x", title: "" })
       }
-      for (let i = 1; i <= this.lastDate; i++) {
-        this.$set(this.date, e, i);
-        e++;
+      for (var i = 1; i <= this.lastDate; i++) {
+        this.$set(this.dateInfo,e,{ date: i, title: "" })
+        e++
       }
     },
     setAllYear() {
@@ -163,29 +167,51 @@ export default {
           var anniversaryYears = this.currentYear - this.anni[i].anniDate.slice(0, 4);
           var count = this.CountDown(this.currentYear + "/" + this.anni[i].anniDate.slice(5), current);
           if (anniversaryYears) {
-            this.anniversaryYears=anniversaryYears
+            this.anniversaryYears = anniversaryYears;
             this.anniversary = this.anni[i].anni;
             this.countDown = count;
           }
         }
+        this.setTitle()
       });
+    },
+    setTitle() {
+      for (var i = 0; i < this.anni.length; i++) {
+        if (this.anniMon == this.anni[i].anniDate.slice(5, 7)) {
+          var day=this.anni[i].anniDate.slice(8)
+          if(day.slice(0,1)=='0'){
+            day=day.slice(1)
+          }
+          for(var j=0;j<this.dateInfo.length;j++){
+            if(day==this.dateInfo[j].date){
+              this.$set(this.dateInfo,j,{ date: day, title: this.anni[i].anni})
+            }
+          }
+        }
+      }
     }
   },
   mounted() {
-    this.setAllYear();
-    this.setAllMon();
-    this.getCurrentDate();
-    this.getAnni();
+    this.setAllYear()
+    this.setAllMon()
+    this.getCurrentDate()
+    this.getAnni()
+  },
+  created(){
+    this.getAnni()
   },
   watch: {
     selectedYear: function getNewCanlendar(value) {
       this.getApointedDate(value, this.selectedMon);
-      this.createDate();
+      this.createDate()
+      this.getAnni()
     },
     selectedMon: function getNewCanlendar(value) {
-      this.getApointedDate(this.selectedYear, value);
-      this.selectedMonth = this.month[value - 1];
-      this.createDate();
+      this.getApointedDate(this.selectedYear, value)
+      this.selectedMonth = this.month[value - 1]
+      this.createDate()
+      this.setTitle()
+      this.getAnni()
     }
   }
 };
@@ -300,6 +326,11 @@ select {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 .anniColor {
-  background: #f08080;
+  background: #f4a460;
+  opacity: 0.85;
+}
+.anniColor:hover{
+  background: #f4a460;
+  opacity: 1;
 }
 </style>
