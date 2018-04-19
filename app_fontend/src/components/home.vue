@@ -106,6 +106,7 @@ export default {
 }
 .allMarkdownText {
   height: auto;
+  max-height:800px;
   overflow: visible;
 }
 .readBtn {
