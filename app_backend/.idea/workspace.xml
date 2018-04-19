@@ -10,7 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/app_backend$app_backend.coverage" NAME="app_backend Coverage Results" MODIFIED="1524136746372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/app_backend$app_backend.coverage" NAME="app_backend Coverage Results" MODIFIED="1524151211110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/app_backend$sqlconnect.coverage" NAME="sqlconnect Coverage Results" MODIFIED="1524109154879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -18,8 +18,8 @@
       <file leaf-file-name="app_backend.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_backend.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+            <state relative-caret-position="131">
+              <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -30,8 +30,8 @@
       <file leaf-file-name="sqlconnect.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sqlconnect.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+            <state relative-caret-position="279">
+              <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <marker date="1524133635739" expanded="true" signature="278:338" ph="INSERT INTO noteBook... " />
@@ -73,7 +73,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="289" />
+    <option name="x" value="206" />
     <option name="y" value="41" />
     <option name="width" value="1234" />
     <option name="height" value="757" />
@@ -93,8 +93,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -106,6 +104,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -193,7 +193,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="289" y="41" width="1234" height="757" extended-state="0" />
+    <frame x="206" y="41" width="1234" height="757" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -237,6 +237,35 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app_backend.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sqlconnect.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1524133635739" expanded="true" signature="278:338" ph="INSERT INTO noteBook... " />
+            <marker date="1524133635739" expanded="true" signature="469:491" ph="SELECT * FRO... notebook" />
+            <marker date="1524133635739" expanded="true" signature="839:902" ph="INSERT INTO anniversary... " />
+            <marker date="1524133635739" expanded="true" signature="1037:1062" ph="SELECT * FRO... anniversary" />
+            <marker date="1524133635739" expanded="true" signature="1403:1446" ph="SELECT * FRO... anniversary" />
+            <marker date="1524133635739" expanded="true" signature="1403:1460" ph="SELECT * FRO... anniversary" />
+            <marker date="1524133635739" expanded="true" signature="1666:1689" ph="UPDATE anniversary... " />
+            <marker date="1524133635739" expanded="true" signature="1666:1722" ph="UPDATE anniversary... " />
+            <marker date="1524133635739" expanded="true" signature="1857:1895" ph="DELETE FROM notes... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app_backend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -420,8 +449,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sqlconnect.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+        <state relative-caret-position="279">
+          <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <marker date="1524133635739" expanded="true" signature="278:338" ph="INSERT INTO noteBook... " />
@@ -439,8 +468,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app_backend.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+        <state relative-caret-position="131">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

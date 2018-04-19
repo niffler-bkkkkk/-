@@ -11,7 +11,7 @@
           </select>
         </div>
         <div class="anniversaryText">
-      <p>{{ countDown }}</p>天后是你们<br><p>{{ anniversary }}</p><br>的纪念日
+      <p>{{ countDown }}</p>天后是你们<br><p>{{ anniversary }}<br>{{ anniversaryYears }}</p>周年<br>的纪念日
     </div>
     </div>
     <div class="calendarContainer">
@@ -36,6 +36,7 @@ export default {
     return {
       countDown: 0,
       anniversary: "",
+      anniversaryYears:0,
       selectedMonth: "",
       selectedYear: 0,
       selectedMon: 0,
@@ -54,15 +55,13 @@ export default {
       anni: [],
       anniDay: 0,
       anniColor: "anniColor",
-      anniSort: [],
-      anniDate: [],
-      anniArray: []
     };
   },
   methods: {
     addAnniversary(index) {
       var anniversary = prompt("这一天是啥纪念日呢?");
       if (anniversary) {
+        var anniYear = this.selectedYear;
         var anniMon = this.selectedMon;
         var anniDay = index - this.firstDay + 1;
         if (anniMon < 10) {
@@ -71,7 +70,7 @@ export default {
         if (anniDay < 10) {
           anniDay = "0" + anniDay;
         }
-        var date = anniMon + "-" + anniDay;
+        var date = anniYear + "/" + anniMon + "/" + anniDay;
         let params = new URLSearchParams();
         params.append("anniDate", date);
         params.append("anni", anniversary);
@@ -132,14 +131,15 @@ export default {
     },
     CountDown(annidate, currentdate) {
       var adate, date1, date2, cout;
-      adate = annidate.split("-");
+      adate = annidate.split("/");
       date1 = new Date(adate[1] + "/" + adate[2] + "/" + adate[0]);
-      adate = currentdate.split("-");
+      adate = currentdate.split("/");
       date2 = new Date(adate[1] + "/" + adate[2] + "/" + adate[0]);
       var count = parseInt((date1 - date2) / 1000 / 60 / 60 / 24);
       return count;
     },
     getAnni() {
+      var currentYear = this.currentYear.toString();
       var currentMonth = this.currentMonth.toString();
       var currentDate = this.currentDate.toString();
       if (this.currentMonth < 10) {
@@ -148,35 +148,24 @@ export default {
       if (this.currentDate < 10) {
         var currentDate = "0" + this.currentDate.toString();
       }
-      var current = currentMonth + currentDate;
+      var current = currentYear + "/" + currentMonth + "/" + currentDate;
       this.axios.get("http://127.0.0.1:4000/getAnni").then(res => {
         this.anni = res.data;
-        for (var i = 0; i < this.anni.length; i++) {
-          var anniDate = this.anni[i].anniDate.split("-");
-          var anniMon = anniDate[0];
-          var anniDay = anniDate[1];
-          this.$set(this.anniSort, i, anniMon + anniDay);
-        }
-        this.$set(this.anniSort, i, current);
-        this.anniSort = this.anniSort.sort();
-        var index = this.anniSort.indexOf(current);
-        for (var j = 0; j < this.anniSort.length; j++) {
-          anniMon = this.anniSort[j].slice(0, 2);
-          anniDay = this.anniSort[j].slice(2, 4);
-          var anniStr = this.currentYear + "-" + anniMon + "-" + anniDay;
-          this.$set(this.anniArray, j, anniStr);
-        }
-        if (index < this.anniArray.length - 1) {
-          var count = this.CountDown(this.anniArray[index + 1], this.anniArray[index]);
-          var currentAnni = this.anniArray[index + 1].slice(5, 7) + "-" + this.anniArray[index + 1].slice(8);
-          for (var k = 0; k < this.anni.length; k++) {
-            if (currentAnni == this.anni[k].anniDate) {
-              break;
-            }
+        this.anni.sort(function(a,b){
+          return Date.parse(a.anniDate)-Date.parse(b.anniDate)
+        })
+        for(var i=0;i<this.anni.length;i++){
+          if(current.slice(5)<this.anni[i].anniDate.slice(5)){
+            break;
           }
-          this.anniversary = this.anni[k].anni;
-          this.countDown = count;
         }
+        if(i<this.anni.length){
+          var count=this.CountDown(this.currentYear+'/'+this.anni[i].anniDate.slice(5),current)
+          this.anniversary=this.anni[i].anni
+          this.countDown = count;
+          this.anniversaryYears=this.currentYear-this.anni[i].anniDate.slice(0,4)
+        }
+
       });
     }
   },
