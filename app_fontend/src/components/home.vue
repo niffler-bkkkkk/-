@@ -100,13 +100,11 @@ export default {
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.157);
 }
 .markdownText {
-  min-height: 100px;
-  max-height: 160px;
+  height: 160px;
   overflow: hidden;
 }
 .allMarkdownText {
   height: auto;
-  max-height:800px;
   overflow: visible;
 }
 .readBtn {
