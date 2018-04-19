@@ -36,7 +36,7 @@ export default {
     return {
       countDown: 0,
       anniversary: "",
-      anniversaryYears:0,
+      anniversaryYears: 0,
       selectedMonth: "",
       selectedYear: 0,
       selectedMon: 0,
@@ -54,7 +54,7 @@ export default {
       blankDateItem: "blankDateItem",
       anni: [],
       anniDay: 0,
-      anniColor: "anniColor",
+      anniColor: "anniColor"
     };
   },
   methods: {
@@ -151,21 +151,23 @@ export default {
       var current = currentYear + "/" + currentMonth + "/" + currentDate;
       this.axios.get("http://127.0.0.1:4000/getAnni").then(res => {
         this.anni = res.data;
-        this.anni.sort(function(a,b){
-          return Date.parse(a.anniDate)-Date.parse(b.anniDate)
-        })
-        for(var i=0;i<this.anni.length;i++){
-          if(current.slice(5)<this.anni[i].anniDate.slice(5)){
+        this.anni.sort(function(a, b) {
+          return Date.parse(a.anniDate) - Date.parse(b.anniDate);
+        });
+        for (var i = 0; i < this.anni.length; i++) {
+          if (current.slice(5) <= this.anni[i].anniDate.slice(5)) {
             break;
           }
         }
-        if(i<this.anni.length){
-          var count=this.CountDown(this.currentYear+'/'+this.anni[i].anniDate.slice(5),current)
-          this.anniversary=this.anni[i].anni
-          this.countDown = count;
-          this.anniversaryYears=this.currentYear-this.anni[i].anniDate.slice(0,4)
+        if (i < this.anni.length) {
+          var anniversaryYears = this.currentYear - this.anni[i].anniDate.slice(0, 4);
+          var count = this.CountDown(this.currentYear + "/" + this.anni[i].anniDate.slice(5), current);
+          if (anniversaryYears) {
+            this.anniversaryYears=anniversaryYears
+            this.anniversary = this.anni[i].anni;
+            this.countDown = count;
+          }
         }
-
       });
     }
   },
@@ -212,6 +214,7 @@ export default {
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.157);
   height: 690px;
   width: 25vw;
+  min-width: 300px;
   margin-right: 20px;
   display: flex;
   align-items: center;
