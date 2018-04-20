@@ -24,7 +24,7 @@
       <div class="line line3"></div>
       <div class="line line4"></div>
       <div class="line line5"></div>
-      <div class="dateItem" v-for="(item,index) in dateInfo" :key="index" :class="[item.title==''?'':anniColor,item.date=='x'?blankDateItem:'']" v-on:click="addAnniversary(index)" :title="item.title">{{ item.date }}</div>
+      <div class="dateItem" v-for="(item,index) in dateInfo" :key="index" :class="[item.title==''?'':anniColor,item.date=='x'?blankDateItem:'',currentDateIndex==index?currentDateColor:'']" v-on:click="addAnniversary(index)" :title="item.title">{{ item.date }}</div>
     </div>
     </div>
   </div>
@@ -52,6 +52,8 @@ export default {
       dateInfo: [],
       blankItem: 0,
       blankDateItem: "blankDateItem",
+      currentDateColor: "currentDateColor",
+      currentDateIndex: 233,
       anni: [],
       anniDay: 0,
       anniColor: "anniColor",
@@ -162,10 +164,11 @@ export default {
           }
         }
         this.setTitle();
+        this.setCurrentDateColor();
       });
     },
     setTitle() {
-      this.dateInfo=[]
+      this.dateInfo = [];
       var anniMon = this.selectedMon;
       if (anniMon < 10) {
         anniMon = "0" + anniMon;
@@ -175,8 +178,8 @@ export default {
         this.$set(this.dateInfo, e, { date: "x", title: "" });
       }
       for (var i = 1; i <= this.lastDate; i++) {
-        this.$set(this.dateInfo,e,{ date: i, title: "" })
-        e++
+        this.$set(this.dateInfo, e, { date: i, title: "" });
+        e++;
       }
       for (var i = 0; i < this.anni.length; i++) {
         if (anniMon == this.anni[i].anniDate.slice(5, 7)) {
@@ -184,12 +187,19 @@ export default {
           if (day.slice(0, 1) == "0") {
             day = day.slice(1);
           }
-          for(var j=0;j<this.dateInfo.length;j++){
-            if(day==this.dateInfo[j].date){
-              this.$set(this.dateInfo,j,{ date: day, title: this.anni[i].anni})
+          for (var j = 0; j < this.dateInfo.length; j++) {
+            if (day == this.dateInfo[j].date) {
+              this.$set(this.dateInfo, j, { date: day, title: this.anni[i].anni });
             }
           }
         }
+      }
+    },
+    setCurrentDateColor() {
+      if (this.selectedYear == this.currentYear && this.selectedMon == this.currentMonth) {
+        this.currentDateIndex = this.currentDate + this.firstDay - 1;
+      }else{
+        this.currentDateIndex=233
       }
     }
   },
@@ -252,7 +262,7 @@ export default {
 }
 .calendarContainer {
   width: 700px;
-  height: 690px;
+  height: 685px;
   overflow: hidden;
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.157);
   background: rgba(255, 255, 255, 0.85);
@@ -260,12 +270,13 @@ export default {
 .weekItem,
 .dateItem {
   font-size: 20px;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
+  height: 54px;
+  width: 54px;
+  line-height: 54px;
   text-align: center;
+  vertical-align: center;
   display: inline-block;
-  margin: 25px;
+  margin: 23px;
   cursor: pointer;
 }
 .weekItem {
@@ -327,5 +338,9 @@ select {
 .anniColor:hover {
   background: #f4a460;
   opacity: 1;
+}
+.currentDateColor {
+  box-sizing: border-box;
+  border: 3px#f08080 solid;
 }
 </style>
