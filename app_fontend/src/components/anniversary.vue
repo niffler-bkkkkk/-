@@ -178,7 +178,6 @@ export default {
         this.$set(this.dateInfo,e,{ date: i, title: "" })
         e++
       }
-      var index = e;
       for (var i = 0; i < this.anni.length; i++) {
         if (anniMon == this.anni[i].anniDate.slice(5, 7)) {
           var day = this.anni[i].anniDate.slice(8);
