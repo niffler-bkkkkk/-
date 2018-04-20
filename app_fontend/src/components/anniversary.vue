@@ -24,7 +24,7 @@
       <div class="line line3"></div>
       <div class="line line4"></div>
       <div class="line line5"></div>
-      <div class="dateItem" v-for="(item,index) in dateInfo" :key="index" :class="[item.date=='x'?blankDateItem:'',item.title==''?'':anniColor]" v-on:click="addAnniversary(index)" :title="item.title">{{ item.date }}</div>
+      <div class="dateItem" v-for="(item,index) in dateInfo" :key="index" :class="[item.title==''?'':anniColor,item.date=='x'?blankDateItem:'']" v-on:click="addAnniversary(index)" :title="item.title">{{ item.date }}</div>
     </div>
     </div>
   </div>
@@ -62,18 +62,18 @@ export default {
   methods: {
     addAnniversary(index) {
       var anniversary = prompt("这一天是啥纪念日呢?");
+      var anniYear = this.selectedYear;
+      var anniMon = this.selectedMon;
+      var anniDay = index - this.firstDay + 1;
+      if (anniMon < 10) {
+        anniMon = "0" + anniMon;
+        this.anniMon = anniMon;
+      }
+      if (anniDay < 10) {
+        anniDay = "0" + anniDay;
+        this.anniDay = anniDay;
+      }
       if (anniversary) {
-        var anniYear = this.selectedYear;
-        var anniMon = this.selectedMon;
-        var anniDay = index - this.firstDay + 1;
-        if (anniMon < 10) {
-          anniMon = "0" + anniMon;
-          this.anniMon = anniMon;
-        }
-        if (anniDay < 10) {
-          anniDay = "0" + anniDay;
-          this.anniDay = anniDay;
-        }
         var date = anniYear + "/" + anniMon + "/" + anniDay;
         let params = new URLSearchParams();
         params.append("anniDate", date);
@@ -111,17 +111,6 @@ export default {
       this.selectMonth = this.month[currentMonth];
       this.selectedYear = currentYear;
       this.selectedMon = currentMonth + 1;
-    },
-    createDate() {
-      this.dateInfo = [];
-      var blank = this.firstDay;
-      for (var e = 0; e < blank; e++) {
-        this.$set(this.dateInfo,e,{ date: "x", title: "" })
-      }
-      for (var i = 1; i <= this.lastDate; i++) {
-        this.$set(this.dateInfo,e,{ date: i, title: "" })
-        e++
-      }
     },
     setAllYear() {
       for (let i = 2018; i > 1990; i--) {
@@ -172,15 +161,29 @@ export default {
             this.countDown = count;
           }
         }
-        this.setTitle()
+        this.setTitle();
       });
     },
     setTitle() {
+      this.dateInfo=[]
+      var anniMon = this.selectedMon;
+      if (anniMon < 10) {
+        anniMon = "0" + anniMon;
+      }
+      var blank = Number(this.firstDay);
+      for (var e = 0; e < blank; e++) {
+        this.$set(this.dateInfo, e, { date: "x", title: "" });
+      }
+      for (var i = 1; i <= this.lastDate; i++) {
+        this.$set(this.dateInfo,e,{ date: i, title: "" })
+        e++
+      }
+      var index = e;
       for (var i = 0; i < this.anni.length; i++) {
-        if (this.anniMon == this.anni[i].anniDate.slice(5, 7)) {
-          var day=this.anni[i].anniDate.slice(8)
-          if(day.slice(0,1)=='0'){
-            day=day.slice(1)
+        if (anniMon == this.anni[i].anniDate.slice(5, 7)) {
+          var day = this.anni[i].anniDate.slice(8);
+          if (day.slice(0, 1) == "0") {
+            day = day.slice(1);
           }
           for(var j=0;j<this.dateInfo.length;j++){
             if(day==this.dateInfo[j].date){
@@ -192,26 +195,19 @@ export default {
     }
   },
   mounted() {
-    this.setAllYear()
-    this.setAllMon()
-    this.getCurrentDate()
-    this.getAnni()
-  },
-  created(){
-    this.getAnni()
+    this.getCurrentDate();
+    this.setAllYear();
+    this.setAllMon();
   },
   watch: {
     selectedYear: function getNewCanlendar(value) {
       this.getApointedDate(value, this.selectedMon);
-      this.createDate()
-      this.getAnni()
+      this.getAnni();
     },
     selectedMon: function getNewCanlendar(value) {
-      this.getApointedDate(this.selectedYear, value)
-      this.selectedMonth = this.month[value - 1]
-      this.createDate()
-      this.setTitle()
-      this.getAnni()
+      this.getApointedDate(this.selectedYear, value);
+      this.selectedMonth = this.month[value - 1];
+      this.getAnni();
     }
   }
 };
@@ -329,7 +325,7 @@ select {
   background: #f4a460;
   opacity: 0.85;
 }
-.anniColor:hover{
+.anniColor:hover {
   background: #f4a460;
   opacity: 1;
 }
