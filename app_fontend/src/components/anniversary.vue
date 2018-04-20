@@ -167,8 +167,12 @@ export default {
         this.setCurrentDateColor();
       });
     },
-    createDate(){
+    setTitle() {
       this.dateInfo = [];
+      var anniMon = this.selectedMon;
+      if (anniMon < 10) {
+        anniMon = "0" + anniMon;
+      }
       var blank = Number(this.firstDay);
       for (var e = 0; e < blank; e++) {
         this.$set(this.dateInfo, e, { date: "x", title: "" });
@@ -176,12 +180,6 @@ export default {
       for (var i = 1; i <= this.lastDate; i++) {
         this.$set(this.dateInfo, e, { date: i, title: "" });
         e++;
-      }
-    },
-    setTitle() {
-      var anniMon = this.selectedMon;
-      if (anniMon < 10) {
-        anniMon = "0" + anniMon;
       }
       for (var i = 0; i < this.anni.length; i++) {
         if (anniMon == this.anni[i].anniDate.slice(5, 7)) {
@@ -207,9 +205,9 @@ export default {
   },
   mounted() {
     this.getCurrentDate();
-    this.createDate();
     this.setAllYear();
     this.setAllMon();
+    this.getAnni();
   },
   watch: {
     selectedYear: function getNewCanlendar(value) {
@@ -343,7 +341,11 @@ select {
   opacity: 1;
 }
 .currentDateColor {
-  box-sizing: border-box;
-  border: 3px#f08080 solid;
+  background:#f08080;
+  opacity: 0.85;
+}
+.currentDateColor:hover{
+  background: #f08080;
+  opacity: 1;
 }
 </style>
