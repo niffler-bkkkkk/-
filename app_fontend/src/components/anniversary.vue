@@ -167,12 +167,8 @@ export default {
         this.setCurrentDateColor();
       });
     },
-    setTitle() {
+    createDate(){
       this.dateInfo = [];
-      var anniMon = this.selectedMon;
-      if (anniMon < 10) {
-        anniMon = "0" + anniMon;
-      }
       var blank = Number(this.firstDay);
       for (var e = 0; e < blank; e++) {
         this.$set(this.dateInfo, e, { date: "x", title: "" });
@@ -180,6 +176,12 @@ export default {
       for (var i = 1; i <= this.lastDate; i++) {
         this.$set(this.dateInfo, e, { date: i, title: "" });
         e++;
+      }
+    },
+    setTitle() {
+      var anniMon = this.selectedMon;
+      if (anniMon < 10) {
+        anniMon = "0" + anniMon;
       }
       for (var i = 0; i < this.anni.length; i++) {
         if (anniMon == this.anni[i].anniDate.slice(5, 7)) {
@@ -205,6 +207,7 @@ export default {
   },
   mounted() {
     this.getCurrentDate();
+    this.createDate();
     this.setAllYear();
     this.setAllMon();
   },
