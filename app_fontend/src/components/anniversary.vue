@@ -147,19 +147,19 @@ export default {
       this.axios.get("http://127.0.0.1:4000/getAnni").then(res => {
         this.anni = res.data;
         this.anni.sort(function(a, b) {
-          return Date.parse(a.anniDate) - Date.parse(b.anniDate);
+          return Date.parse(a.anniDate.slice(5)) - Date.parse(b.anniDate.slice(5));
         });
         for (var i = 0; i < this.anni.length; i++) {
-          if (current.slice(5) <= this.anni[i].anniDate.slice(5)) {
+          if (current.slice(5) < this.anni[i].anniDate.slice(5)) {
             break;
           }
         }
         if (i < this.anni.length) {
-          var anniversaryYears = this.currentYear - this.anni[i].anniDate.slice(0, 4);
-          var count = this.CountDown(this.currentYear + "/" + this.anni[i].anniDate.slice(5), current);
-          if (anniversaryYears) {
+          var anniversaryYears = this.currentYear - this.anni[i+1].anniDate.slice(0, 4);
+          var count = this.CountDown(this.currentYear + "/" + this.anni[i+1].anniDate.slice(5), current);
+          if (anniversaryYears>0) {
             this.anniversaryYears = anniversaryYears;
-            this.anniversary = this.anni[i].anni;
+            this.anniversary = this.anni[i+1].anni;
             this.countDown = count;
           }
         }
