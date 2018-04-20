@@ -2,6 +2,9 @@
   <div class="homeContainer">
     <div class="markdownContent" v-for="(item,index) in compiledMd" :key="index">
       <div class="delete" :class="[showAllContent==index?showDelete:'']"  v-on:click="deleteNote(index)">&times;</div>
+      <div class="edit">
+        <img class="editIcon" :class="[showAllContent==index?showEdit:'']" src="../assets/edit.svg" v-on:click="editNote(index)">
+      </div>
     <div class="markdownText" :class="[showAllContent==index?allMarkdownText:'']" v-html="item"></div>
     <div class="noteDate" :class="[showAllContent==index?showNotedate:'']">{{ datearray[index] }}</div>
     <div class="readBtn" v-on:click="showAll(index)">阅读全文></div>
@@ -41,7 +44,8 @@ export default {
       showAllContent: 0,
       showDelete: "showDelete",
       allMarkdownText: "allMarkdownText",
-      showNotedate: "showNotedate"
+      showNotedate: "showNotedate",
+      showEdit:'showEdit'
     };
   },
   methods: {
@@ -79,6 +83,12 @@ export default {
       } else {
         return false;
       }
+    },
+    editNote(index){
+      var noteDate=this.datearray[index]
+      var note=this.note[index]
+      this.$emit('editNote',noteDate,note)
+      this.$emit("showNotebook")
     }
   },
   mounted() {
@@ -98,6 +108,8 @@ export default {
   margin-bottom: 10px;
   background: #fff;
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.157);
+  min-width: 500px;
+  max-width: 800px;
 }
 .markdownText {
   height: 160px;
@@ -144,6 +156,15 @@ export default {
   display: none;
 }
 .showNotedate {
+  display: block;
+}
+.editIcon{
+  height:24px;
+  width: 24px;
+  display: none;
+  cursor: pointer;
+}
+.showEdit{
   display: block;
 }
 </style>
